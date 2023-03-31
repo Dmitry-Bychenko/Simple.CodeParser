@@ -17,7 +17,7 @@ public static class ProjectExtensions {
   /// <returns></returns>
   /// <exception cref="ArgumentNullException">When project is null</exception>
   /// <exception cref="ArgumentException">When project is in unknown format</exception>
-  public static IEnumerable<(Project Project, string Name, Version Version)> NugetPackages(this Project? project) {
+  public static IEnumerable<(Project Project, NugetPackage Package)> NugetPackages(this Project? project) {
     if (project is null)
       throw new ArgumentNullException(nameof(project));
 
@@ -32,7 +32,7 @@ public static class ProjectExtensions {
       nodes = csproj.SelectNodes("//PackageReference[@Include and @Version]");
     }
     catch (Exception e) {
-      throw new ArgumentException($"{e}", nameof(project));
+      throw new ArgumentException($"{e}", nameof(project), e);
     }
 
     if (nodes is null)
@@ -48,10 +48,10 @@ public static class ProjectExtensions {
       var packageName = nameAttributes.Value;
 
       var packageVersion = Version.TryParse(versionAttributes.Value, out var version)
-          ? version
-          : new Version();
+        ? version
+        : new Version();
 
-      yield return (project, packageName, packageVersion);
+      yield return (project, new NugetPackage(packageName, packageVersion));
     }
   }
 
