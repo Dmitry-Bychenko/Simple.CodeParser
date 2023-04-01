@@ -44,14 +44,8 @@ public static class ProjectExtensions {
 
       if (nameAttributes is null || versionAttributes is null)
         continue;
-
-      var packageName = nameAttributes.Value;
-
-      var packageVersion = Version.TryParse(versionAttributes.Value, out var version)
-        ? version
-        : new Version();
-
-      yield return (project, new NugetPackage(packageName, packageVersion));
+      
+      yield return (project, new NugetPackage(nameAttributes.Value, versionAttributes.Value));
     }
   }
 

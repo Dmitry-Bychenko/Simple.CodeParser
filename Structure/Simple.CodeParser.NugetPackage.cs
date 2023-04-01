@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Simple.CodeParser.Structure {
@@ -9,7 +10,14 @@ namespace Simple.CodeParser.Structure {
   /// <summary>
   /// Nuget package
   /// </summary>
-  public sealed class NugetPackage : IEquatable<NugetPackage>, IComparable<NugetPackage> {
+  public sealed partial class NugetPackage : IEquatable<NugetPackage>, IComparable<NugetPackage> {
+    #region Private Data
+
+    [GeneratedRegex(pattern: @"^(?<prefix>.*)(?<version>[0-9]{1,9}(?:\.[0-9]{1,9}){1,3})(?<suffix>.*)$")]
+    private static partial Regex VersionRegex();
+
+    #endregion Private Data
+
     #region Create
 
     /// <summary>
@@ -18,9 +26,22 @@ namespace Simple.CodeParser.Structure {
     /// <param name="name">Name</param>
     /// <param name="version">Version</param>
     /// <exception cref="ArgumentNullException">When Name is null</exception>
-    public NugetPackage(string name, Version version) { 
+    public NugetPackage(string name, string version) { 
       Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
-      Version = version ?? new Version();
+
+      if (string.IsNullOrWhiteSpace(version))
+        Version = new Version();
+      else {
+        var match = VersionRegex().Match(version.Trim());
+
+        if (Version.TryParse(match.Groups["version"].Value, out var ver))
+          Version = ver;
+        else
+          Version = new Version();
+
+        VersionPrefix = match.Groups["prefix"].Value;
+        VersionSuffix = match.Groups["suffix"].Value;
+      }
     }
 
     #endregion Create
@@ -43,7 +64,17 @@ namespace Simple.CodeParser.Structure {
       if (result != 0)
         return result;
 
-      return left.Version.CompareTo(right.Version);
+      result = left.Version.CompareTo(right.Version);
+
+      if (result != 0)
+        return result;
+
+      result = StringComparer.OrdinalIgnoreCase.Compare(left.VersionPrefix, right.VersionPrefix);
+
+      if (result != 0)
+        return result;
+
+      return StringComparer.OrdinalIgnoreCase.Compare(left.VersionSuffix, right.VersionSuffix);
     }
 
     /// <summary>
@@ -55,6 +86,16 @@ namespace Simple.CodeParser.Structure {
     /// Version
     /// </summary>
     public Version Version { get; }
+
+    /// <summary>
+    /// Version Prefix
+    /// </summary>
+    public string VersionPrefix { get; } = "";
+
+    /// <summary>
+    /// Version Suffix
+    /// </summary>
+    public string VersionSuffix { get; } = "";
 
     /// <summary>
     /// To String
