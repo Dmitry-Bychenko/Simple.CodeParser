@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>True</SignAssembly>
     <Title>Simple Source Code Parser</Title>
     <Description>Simple Code Parser (Roslyn based)</Description>
     <Copyright>Copyright (c) 2023 by Dmitry Bychenko</Copyright>
@@ -12,6 +12,8 @@
     <RepositoryUrl>https://github.com/Dmitry-Bychenko/Simple.CodeParser.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Dmitry-Bychenko/Simple.CodeParser</PackageProjectUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Dmitry Bychenko</Authors>
+    <PackageIcon>Simple.CodeParser.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +25,10 @@
 
   <ItemGroup>
     <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Simple.CodeParser.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
