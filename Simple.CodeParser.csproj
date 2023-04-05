@@ -19,8 +19,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Build" Version="17.5.0" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.Build.Locator" Version="1.5.5" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.6.0-1.final" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.6.0-1.final" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.5.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Simple.CodeParser.Structure {
-  
+
   /// <summary>
   /// Nuget package
   /// </summary>
@@ -26,7 +21,7 @@ namespace Simple.CodeParser.Structure {
     /// <param name="name">Name</param>
     /// <param name="version">Version</param>
     /// <exception cref="ArgumentNullException">When Name is null</exception>
-    public NugetPackage(string name, string version) { 
+    public NugetPackage(string name, string version) {
       Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
 
       if (string.IsNullOrWhiteSpace(version))
@@ -121,7 +116,7 @@ namespace Simple.CodeParser.Structure {
     /// <summary>
     /// Hash Code
     /// </summary>
-    public override int GetHashCode() => 
+    public override int GetHashCode() =>
       HashCode.Combine(Name.GetHashCode(StringComparison.OrdinalIgnoreCase), Version);
 
     #endregion IEquatable<NugetPackage>

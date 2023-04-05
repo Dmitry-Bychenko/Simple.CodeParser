@@ -44,7 +44,7 @@ public static class ProjectExtensions {
 
       if (nameAttributes is null || versionAttributes is null)
         continue;
-      
+
       yield return (project, new NugetPackage(nameAttributes.Value, versionAttributes.Value));
     }
   }

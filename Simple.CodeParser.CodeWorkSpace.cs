@@ -8,7 +8,7 @@ namespace Simple.CodeParser;
 /// <summary>
 ///     Workspace to start working with
 /// </summary>
-public static class WorkSpace {
+public static class CodeWorkSpace {
   #region Algorithm
 
   private static void CoreLoad() {
@@ -29,7 +29,7 @@ public static class WorkSpace {
 
   #region Create
 
-  static WorkSpace() {
+  static CodeWorkSpace() {
     CoreLoad();
 
     BuildWorkSpace = MSBuildWorkspace.Create();
@@ -44,6 +44,9 @@ public static class WorkSpace {
   /// </summary>
   public static VisualStudioInstance? VisualStudio { get; private set; }
 
+  /// <summary>
+  /// Build Work Space
+  /// </summary>
   public static MSBuildWorkspace BuildWorkSpace { get; }
 
   /// <summary>
