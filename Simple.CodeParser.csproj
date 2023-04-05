@@ -14,6 +14,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Dmitry Bychenko</Authors>
     <PackageIcon>Simple.CodeParser.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
